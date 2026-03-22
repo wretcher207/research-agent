@@ -1,10 +1,9 @@
 # app.py
 from flask import Flask, request, jsonify
 from agent import run_agent
+from supabase_sessions import get_session, save_session
 
 app = Flask(__name__)
-
-sessions = {}
 
 
 @app.route("/", methods=["GET"])
@@ -22,11 +21,9 @@ def ask():
     question   = data["question"]
     session_id = data.get("session_id", "default")
 
-    if session_id not in sessions:
-        sessions[session_id] = []
-
-    answer, updated_history = run_agent(question, sessions[session_id])
-    sessions[session_id] = updated_history
+    history = get_session(session_id)
+    answer, updated_history = run_agent(question, history)
+    save_session(session_id, updated_history)
 
     return jsonify({
         "answer":     answer,
@@ -39,7 +36,7 @@ def ask():
 def clear():
     data       = request.get_json() or {}
     session_id = data.get("session_id", "default")
-    sessions.pop(session_id, None)
+    save_session(session_id, [])
     return jsonify({"status": "cleared", "session_id": session_id})
 
 
