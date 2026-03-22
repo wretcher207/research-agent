@@ -1,0 +1,11 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from   = "/ask"
+  to     = "YOUR_BACKEND_URL/ask"
+  status = 200
+  force  = true
+
+  [redirects.headers]
+    X-From = "netlify"
