@@ -3,12 +3,12 @@ from flask import Flask, request, jsonify
 from agent import run_agent
 from supabase_sessions import get_session, save_session
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=".", static_url_path="")
 
 
 @app.route("/", methods=["GET"])
-def health():
-    return jsonify({"status": "online", "agent": "research-agent"})
+def index():
+    return app.send_static_file("index.html")
 
 
 @app.route("/ask", methods=["POST"])

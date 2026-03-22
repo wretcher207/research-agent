@@ -20,11 +20,10 @@ def get_session(session_id: str) -> list:
         _client.table("sessions")
         .select("messages")
         .eq("session_id", session_id)
-        .maybe_single()
         .execute()
     )
     if response.data:
-        return response.data["messages"]
+        return response.data[0]["messages"]
     return []
 
 
