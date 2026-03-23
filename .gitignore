@@ -1,2 +1,10 @@
 # Local Netlify folder
 .netlify
+
+# Environment secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
