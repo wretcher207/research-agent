@@ -1,0 +1,14 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/ask"
+  to = "https://research-agent-3zcd.onrender.com/ask"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/clear"
+  to = "https://research-agent-3zcd.onrender.com/clear"
+  status = 200
+  force = true
